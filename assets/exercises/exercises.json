@@ -1,0 +1,119 @@
+[
+  {
+    "id": "bench_press_barbell",
+    "name": "Supino Reto com Barra",
+    "muscleGroupId": "chest",
+    "primaryMuscleIds": [
+      "pectoralis_major"
+    ],
+    "secondaryMuscleIds": [
+      "triceps",
+      "front_deltoid"
+    ],
+    "equipmentId": "barbell",
+    "level": "beginner",
+    "type": "compound",
+    "unilateral": false,
+    "bilateral": true,
+    "bodyweight": false,
+    "machine": false,
+    "instructions": "Deite no banco, mantenha os pés apoiados, abaixe a barra até a linha do peito e empurre até estender os braços.",
+    "imageAsset": "",
+    "gifAsset": "",
+    "videoUrl": "",
+    "isFavorite": false
+  },
+  {
+    "id": "incline_bench_press_barbell",
+    "name": "Supino Inclinado com Barra",
+    "muscleGroupId": "chest",
+    "primaryMuscleIds": [
+      "upper_pectoralis"
+    ],
+    "secondaryMuscleIds": [
+      "triceps",
+      "front_deltoid"
+    ],
+    "equipmentId": "barbell",
+    "level": "intermediate",
+    "type": "compound",
+    "unilateral": false,
+    "bilateral": true,
+    "bodyweight": false,
+    "machine": false,
+    "instructions": "Empurre a barra em um banco inclinado mantendo o controle durante todo o movimento.",
+    "imageAsset": "",
+    "gifAsset": "",
+    "videoUrl": "",
+    "isFavorite": false
+  },
+  {
+    "id": "dumbbell_bench_press",
+    "name": "Supino com Halteres",
+    "muscleGroupId": "chest",
+    "primaryMuscleIds": [
+      "pectoralis_major"
+    ],
+    "secondaryMuscleIds": [
+      "triceps",
+      "front_deltoid"
+    ],
+    "equipmentId": "dumbbell",
+    "level": "beginner",
+    "type": "compound",
+    "unilateral": false,
+    "bilateral": true,
+    "bodyweight": false,
+    "machine": false,
+    "instructions": "Empurre os halteres até estender os braços mantendo estabilidade.",
+    "imageAsset": "",
+    "gifAsset": "",
+    "videoUrl": "",
+    "isFavorite": false
+  },
+  {
+    "id": "chest_fly_machine",
+    "name": "Voador",
+    "muscleGroupId": "chest",
+    "primaryMuscleIds": [
+      "pectoralis_major"
+    ],
+    "secondaryMuscleIds": [],
+    "equipmentId": "machine",
+    "level": "beginner",
+    "type": "isolation",
+    "unilateral": false,
+    "bilateral": true,
+    "bodyweight": false,
+    "machine": true,
+    "instructions": "Aproxime os braços à frente do peito mantendo leve flexão dos cotovelos.",
+    "imageAsset": "",
+    "gifAsset": "",
+    "videoUrl": "",
+    "isFavorite": false
+  },
+  {
+    "id": "push_up",
+    "name": "Flexão de Braço",
+    "muscleGroupId": "chest",
+    "primaryMuscleIds": [
+      "pectoralis_major"
+    ],
+    "secondaryMuscleIds": [
+      "triceps",
+      "front_deltoid"
+    ],
+    "equipmentId": "bodyweight",
+    "level": "beginner",
+    "type": "compound",
+    "unilateral": false,
+    "bilateral": true,
+    "bodyweight": true,
+    "machine": false,
+    "instructions": "Desça até o peito se aproximar do chão e empurre novamente.",
+    "imageAsset": "",
+    "gifAsset": "",
+    "videoUrl": "",
+    "isFavorite": false
+  }
+]

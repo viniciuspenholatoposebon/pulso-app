@@ -1,0 +1,62 @@
+[
+  {
+    "id": "chest",
+    "name": "Peitoral"
+  },
+  {
+    "id": "back",
+    "name": "Costas"
+  },
+  {
+    "id": "shoulders",
+    "name": "Ombros"
+  },
+  {
+    "id": "biceps",
+    "name": "Bíceps"
+  },
+  {
+    "id": "triceps",
+    "name": "Tríceps"
+  },
+  {
+    "id": "forearms",
+    "name": "Antebraço"
+  },
+  {
+    "id": "abs",
+    "name": "Abdômen"
+  },
+  {
+    "id": "lower_back",
+    "name": "Lombar"
+  },
+  {
+    "id": "quadriceps",
+    "name": "Quadríceps"
+  },
+  {
+    "id": "hamstrings",
+    "name": "Posterior de Coxa"
+  },
+  {
+    "id": "glutes",
+    "name": "Glúteos"
+  },
+  {
+    "id": "calves",
+    "name": "Panturrilhas"
+  },
+  {
+    "id": "cardio",
+    "name": "Cardio"
+  },
+  {
+    "id": "mobility",
+    "name": "Mobilidade"
+  },
+  {
+    "id": "stretching",
+    "name": "Alongamento"
+  }
+]

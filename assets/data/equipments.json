@@ -1,0 +1,62 @@
+[
+  {
+    "id": "barbell",
+    "name": "Barra"
+  },
+  {
+    "id": "dumbbell",
+    "name": "Halter"
+  },
+  {
+    "id": "machine",
+    "name": "Máquina"
+  },
+  {
+    "id": "cable",
+    "name": "Polia"
+  },
+  {
+    "id": "smith",
+    "name": "Smith"
+  },
+  {
+    "id": "bodyweight",
+    "name": "Peso Corporal"
+  },
+  {
+    "id": "kettlebell",
+    "name": "Kettlebell"
+  },
+  {
+    "id": "band",
+    "name": "Faixa Elástica"
+  },
+  {
+    "id": "trx",
+    "name": "TRX"
+  },
+  {
+    "id": "medicine_ball",
+    "name": "Medicine Ball"
+  },
+  {
+    "id": "bench",
+    "name": "Banco"
+  },
+  {
+    "id": "plate",
+    "name": "Anilha"
+  },
+  {
+    "id": "ez_bar",
+    "name": "Barra W"
+  },
+  {
+    "id": "rope",
+    "name": "Corda"
+  },
+  {
+    "id": "other",
+    "name": "Outro"
+  }
+]
