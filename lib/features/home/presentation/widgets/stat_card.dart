@@ -24,7 +24,7 @@ class StatCard extends StatelessWidget {
     final accentColor = color ?? AppColors.volt;
 
     return Container(
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: AppColors.ink,
         borderRadius: BorderRadius.circular(22),
@@ -33,11 +33,13 @@ class StatCard extends StatelessWidget {
         ),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
           Container(
-            width: 46,
-            height: 46,
+            width: 42,
+            height: 42,
             decoration: BoxDecoration(
               color: accentColor.withValues(alpha: .12),
               shape: BoxShape.circle,
@@ -45,27 +47,42 @@ class StatCard extends StatelessWidget {
             child: Icon(
               icon,
               color: accentColor,
+              size: 22,
             ),
           ),
-          const Spacer(),
+
+          const SizedBox(
+            height: 12,
+          ),
+
           Text(
             title,
             style: AppTypography.bodySecondary,
           ),
-          const SizedBox(height: 8),
+
+          const SizedBox(
+            height: 4,
+          ),
+
           RichText(
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             text: TextSpan(
               children: [
+
                 TextSpan(
                   text: value,
-                  style: AppTypography.headlineSmall.copyWith(
+                  style:
+                      AppTypography.headlineSmall.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+
                 if (unit != null)
                   TextSpan(
                     text: ' $unit',
-                    style: AppTypography.body.copyWith(
+                    style:
+                        AppTypography.body.copyWith(
                       color: Colors.white70,
                     ),
                   ),

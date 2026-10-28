@@ -2,327 +2,417 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../controllers/workout_execution_controller.dart';
-import '../widgets/rest_timer.dart';
+import '../widgets/execution/exercise_execution_card.dart';
 import 'workout_summary_screen.dart';
 
-class WorkoutExecutionScreen extends ConsumerStatefulWidget {
+
+
+class WorkoutExecutionScreen
+    extends ConsumerStatefulWidget {
+
   const WorkoutExecutionScreen({
     super.key,
   });
+
 
   @override
   ConsumerState<WorkoutExecutionScreen> createState() =>
       _WorkoutExecutionScreenState();
 }
 
+
+
+
+
 class _WorkoutExecutionScreenState
     extends ConsumerState<WorkoutExecutionScreen> {
-  final Map<String, TextEditingController>
-      _weightControllers = {};
 
-  final Map<String, TextEditingController>
-      _repsControllers = {};
 
-  bool _showRestTimer = false;
+  int exerciseIndex = 0;
 
-  int _restSeconds = 90;
+  int setIndex = 0;
 
-  TextEditingController _getWeightController(
-    String id,
-    double value,
-  ) {
-    return _weightControllers.putIfAbsent(
-      id,
-      () => TextEditingController(
-        text: value.toStringAsFixed(1),
-      ),
-    );
-  }
+  double weight = 0;
 
-  TextEditingController _getRepsController(
-    String id,
-    int value,
-  ) {
-    return _repsControllers.putIfAbsent(
-      id,
-      () => TextEditingController(
-        text: value.toString(),
-      ),
-    );
-  }
+  int reps = 0;
 
-  void _startRestTimer(
-    int exerciseIndex,
-  ) {
-    final seconds = ref
-        .read(
-          workoutExecutionControllerProvider.notifier,
-        )
-        .getRestTime(
-          exerciseIndex,
-        );
 
-    setState(() {
-      _restSeconds = seconds;
-      _showRestTimer = true;
-    });
-  }
 
-  void _finishRest() {
-    setState(() {
-      _showRestTimer = false;
-    });
-  }
 
-  @override
-  void dispose() {
-    for (final controller
-        in _weightControllers.values) {
-      controller.dispose();
-    }
-
-    for (final controller
-        in _repsControllers.values) {
-      controller.dispose();
-    }
-
-    super.dispose();
-  }
 
   @override
   Widget build(
     BuildContext context,
   ) {
-    final session = ref.watch(
-      workoutExecutionControllerProvider,
-    );
+
+
+    final session =
+        ref.watch(
+          workoutExecutionControllerProvider,
+        );
+
+
 
     if (session == null) {
+
       return Scaffold(
+
         appBar: AppBar(
-          title: const Text(
+
+          title:
+              const Text(
             'Treino',
           ),
+
         ),
-        body: const Center(
-          child: Text(
+
+
+        body:
+            const Center(
+
+          child:
+              Text(
             'Nenhum treino iniciado.',
           ),
+
         ),
+
       );
+
     }
 
+
+
+
+
+    final exercise =
+        session.exercises[exerciseIndex];
+
+
+
+    final currentSet =
+        exercise.sets[setIndex];
+
+
+
+
+
+
+
     return Scaffold(
+
       appBar: AppBar(
-        title: const Text(
+
+        title:
+            const Text(
           'Treino em andamento',
         ),
+
       ),
-      body: Stack(
-        children: [
-          ListView.builder(
-            padding: const EdgeInsets.all(20),
-            itemCount: session.exercises.length,
-            itemBuilder: (
-              context,
-              exerciseIndex,
-            ) {
-              final exercise =
-                  session.exercises[exerciseIndex];
 
-              return Card(
-                margin: const EdgeInsets.only(
-                  bottom: 20,
-                ),
-                child: ExpansionTile(
-                  initiallyExpanded:
-                      exerciseIndex == 0,
-                  title: Text(
-                    exercise.exerciseName,
-                  ),
-                  children:
-                      exercise.sets.map(
-                    (set) {
-                      final id =
-                          '${exerciseIndex}_${set.order}';
 
-                      final weightController =
-                          _getWeightController(
-                        id,
-                        set.weight,
-                      );
 
-                      final repsController =
-                          _getRepsController(
-                        id,
-                        set.reps,
-                      );
 
-                      return Padding(
-                        padding:
-                            const EdgeInsets.all(12),
-                        child: Column(
-                          children: [
-                            Text(
-                              'Série ${set.order}',
-                              style:
-                                  const TextStyle(
-                                fontWeight:
-                                    FontWeight.bold,
-                              ),
-                            ),
 
-                            const SizedBox(
-                              height: 12,
-                            ),
+      body: SafeArea(
 
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: TextField(
-                                    controller:
-                                        weightController,
-                                    enabled:
-                                        !set.completed,
-                                    keyboardType:
-                                        TextInputType.number,
-                                    decoration:
-                                        const InputDecoration(
-                                      labelText:
-                                          'Peso kg',
-                                    ),
-                                  ),
-                                ),
+        child: Padding(
 
-                                const SizedBox(
-                                  width: 12,
-                                ),
+          padding:
+              const EdgeInsets.all(20),
 
-                                Expanded(
-                                  child: TextField(
-                                    controller:
-                                        repsController,
-                                    enabled:
-                                        !set.completed,
-                                    keyboardType:
-                                        TextInputType.number,
-                                    decoration:
-                                        const InputDecoration(
-                                      labelText:
-                                          'Repetições',
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
 
-                            const SizedBox(
-                              height: 12,
-                            ),
 
-                            SizedBox(
-                              width:
-                                  double.infinity,
-                              child: FilledButton(
-                                onPressed:
-                                    set.completed
-                                        ? null
-                                        : () {
-                                            ref
-                                                .read(
-                                                  workoutExecutionControllerProvider
-                                                      .notifier,
-                                                )
-                                                .completeSet(
-                                                  exerciseIndex:
-                                                      exerciseIndex,
-                                                  setIndex:
-                                                      set.order - 1,
-                                                  weight:
-                                                      double.tryParse(
-                                                        weightController.text,
-                                                      ) ??
-                                                      0,
-                                                  reps:
-                                                      int.tryParse(
-                                                        repsController.text,
-                                                      ) ??
-                                                      0,
-                                                );
+          child: Column(
 
-                                            _startRestTimer(
-                                              exerciseIndex,
-                                            );
-                                          },
-                                child: Text(
-                                  set.completed
-                                      ? 'Concluído'
-                                      : 'Concluir série',
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
+            children: [
+
+
+
+              LinearProgressIndicator(
+
+                value:
+                    (exerciseIndex + 1) /
+                        session.exercises.length,
+
+              ),
+
+
+
+
+              const SizedBox(
+
+                height:
+                    20,
+
+              ),
+
+
+
+
+
+
+              Expanded(
+
+                child:
+                    SingleChildScrollView(
+
+
+                  child:
+                      ExerciseExecutionCard(
+
+
+                    exercise:
+                        exercise,
+
+
+
+                    currentSet:
+                        setIndex,
+
+
+
+                    onChangeWeight:
+                        (value) {
+
+
+                      weight =
+                          value;
+
+
                     },
-                  ).toList(),
+
+
+
+                    onChangeReps:
+                        (value) {
+
+
+                      reps =
+                          value;
+
+
+                    },
+
+
+
+
+
+                    onCompleteSet:
+                        () async {
+
+
+
+                      ref
+                          .read(
+                            workoutExecutionControllerProvider
+                                .notifier,
+                          )
+                          .completeSet(
+
+                            exerciseIndex:
+                                exerciseIndex,
+
+                            setIndex:
+                                setIndex,
+
+                            weight:
+                                weight == 0
+                                    ? currentSet.weight
+                                    : weight,
+
+                            reps:
+                                reps == 0
+                                    ? currentSet.reps
+                                    : reps,
+
+                          );
+
+
+
+
+
+
+
+                      await Future.delayed(
+
+                        const Duration(
+
+                          milliseconds:
+                              300,
+
+                        ),
+
+                      );
+
+
+
+
+
+
+
+
+                      if (setIndex + 1 <
+                          exercise.sets.length) {
+
+
+                        setState(() {
+
+
+                          setIndex++;
+
+
+                        });
+
+
+                        return;
+
+
+                      }
+
+
+
+
+
+
+
+
+
+                      if (exerciseIndex + 1 <
+                          session.exercises.length) {
+
+
+                        setState(() {
+
+
+                          exerciseIndex++;
+
+
+                          setIndex = 0;
+
+
+                          weight = 0;
+
+
+                          reps = 0;
+
+
+
+                        });
+
+
+                        return;
+
+
+                      }
+
+
+
+
+
+
+
+
+
+                      await ref
+                          .read(
+                            workoutExecutionControllerProvider
+                                .notifier,
+                          )
+                          .finishWorkout();
+
+
+
+
+
+
+
+                      final finishedSession =
+                          ref.read(
+                            workoutExecutionControllerProvider,
+                          );
+
+
+
+
+
+
+
+
+                      if (!context.mounted ||
+                          finishedSession == null) {
+
+
+                        return;
+
+
+                      }
+
+
+
+
+
+
+
+
+                      await Navigator.pushReplacement(
+
+
+                        context,
+
+
+
+                        MaterialPageRoute(
+
+
+
+                          builder:
+                              (_) =>
+                                  WorkoutSummaryScreen(
+
+                            session:
+                                finishedSession,
+
+                          ),
+
+
+                        ),
+
+
+
+                      );
+
+
+
+
+                    },
+
+
+
+                  ),
+
+
                 ),
-              );
-            },
+
+
+              ),
+
+
+
+            ],
+
+
           ),
 
-          if (_showRestTimer)
-            Positioned(
-              left: 20,
-              right: 20,
-              bottom: 20,
-              child: RestTimer(
-                seconds:
-                    _restSeconds,
-                onFinished:
-                    _finishRest,
-              ),
-            ),
-        ],
-      ),
-      floatingActionButton:
-          FloatingActionButton.extended(
-        onPressed: () async {
-          await ref
-              .read(
-                workoutExecutionControllerProvider
-                    .notifier,
-              )
-              .finishWorkout();
 
-          final updatedSession =
-              ref.read(
-            workoutExecutionControllerProvider,
-          );
-
-          if (!context.mounted ||
-              updatedSession == null) {
-            return;
-          }
-
-          await Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (_) =>
-                  WorkoutSummaryScreen(
-                session:
-                    updatedSession,
-              ),
-            ),
-          );
-        },
-        icon: const Icon(
-          Icons.check,
         ),
-        label: const Text(
-          'Finalizar',
-        ),
+
+
       ),
+
+
     );
+
   }
+
 }
